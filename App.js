@@ -13,6 +13,13 @@ export default function App() {
     ]);
   }
 
+  const deleteGoalHandler = (id) => {
+    setCourseGoals((currentCourseGoals) => {
+        return currentCourseGoals.filter((goal) => goal.id !== id);
+      },
+    );
+  };
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -24,7 +31,7 @@ export default function App() {
             /*Text Component 는 과거 IOS 에서는 borderRadius가 적용되지 않아 View Component로 감싸서 적용했었음
             현재 expo 52.0.0 에서는 borderRadius가 적용되는 것을 확인*/
             return (
-              <GoalItem text={itemData.item.text} />
+              <GoalItem id={itemData.item.id} text={itemData.item.text} onDeleteItem={deleteGoalHandler} />
             );
           }}
           // FlatList 는 기본적으로 배열의 Key 값이 있다면 사용하게 되는데 API 에서 데이터를 호출하는 경우와 같이 Key 값이 없을 경우 사용
